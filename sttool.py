@@ -1,5 +1,6 @@
 from flask import Flask, render_template, send_file, request
 from sys import argv
+from os import getcwd
 
 app = Flask(__name__)
 
@@ -29,8 +30,9 @@ def get_port():
 
 
 def get_file():
+    print(getcwd() + "/" + argv[1])
     try:
-        return send_file(argv[1], as_attachment=True)
+        return send_file(getcwd() + "/" + argv[1], as_attachment=True)
     except Exception:
         return f"Unable to locate file '{argv[1]}', was it deleted?"
 
