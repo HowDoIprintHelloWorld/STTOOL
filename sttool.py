@@ -16,7 +16,16 @@ def print_usage():
     exit(1)
 
 
-def validate_file(): ...
+def get_port():
+    if len(argv) >= 4:
+        try:
+            port = int(argv[3])
+            if port > 0 and port < 65535:
+                return port
+        except Exception:
+            pass
+        print(f"Invalid port number: '{argv[3]}'; using 5000")
+    return 5000
 
 
 def get_file():
@@ -42,5 +51,5 @@ def index():
 if __name__ == "__main__":
     if len(argv) < 3:
         print_usage()
-    validate_file()
-    app.run()
+    port: int = get_port()
+    app.run(host="0.0.0.0", port=port)
